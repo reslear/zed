@@ -217,6 +217,7 @@ impl Render for JupyterServers {
             .elevation_3(cx)
             .key_context("JupyterServersModal")
             .on_mouse_down_out(cx.listener(|_, _, cx| cx.emit(DismissEvent)))
+            .w(rems(34.))
             .child(
                 Modal::new("jupyter-servers", Some(self.scroll_handle.clone()))
                     .header(ModalHeader::new().child(Label::new("Jupyter Servers")))
@@ -240,9 +241,17 @@ impl Render for JupyterServers {
                                         .inset(true)
                                         .spacing(ui::ListItemSpacing::Sparse)
                                         .start_slot(
-                                            Icon::new(IconName::Server)
-                                                .color(Color::Muted)
-                                                .size(IconSize::Small),
+                                            h_flex()
+                                                .child(
+                                                    Icon::new(IconName::ReplNeutral)
+                                                        .color(Color::Muted)
+                                                        .size(IconSize::Small),
+                                                )
+                                                .child(
+                                                    Icon::new(IconName::Server)
+                                                        .color(Color::Muted)
+                                                        .size(IconSize::Small),
+                                                ),
                                         )
                                         .child(Label::new(name))
                                         .on_click(cx.listener(move |this, _, cx| {
